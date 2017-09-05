@@ -464,10 +464,6 @@ class Api
                 'MyApiPackageIn' => $packagesProcessed
             ]
         ]);
-
-        print($this->soap->__getLastRequest());
-        print('Response:');
-        print($this->soap->__getLastResponse());
         
         if (isset($result->CreatePackagesResult->ResultData->ItemResult))
         {
