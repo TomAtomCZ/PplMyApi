@@ -8,6 +8,7 @@ namespace Salamek\PplMyApi\Enum;
 
 class Depo
 {
+    const CODE_00 = '00';
     const CODE_01 = '01';
     const CODE_02 = '02';
     const CODE_03 = '03';
@@ -24,6 +25,7 @@ class Depo
 
     /** @var array */
     public static $list = [
+        self::CODE_00,
         self::CODE_01,
         self::CODE_02,
         self::CODE_03,
