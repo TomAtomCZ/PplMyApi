@@ -123,7 +123,7 @@ class Api
         $this->securedStorage = sys_get_temp_dir() . '/' . __CLASS__;
 
         try {
-            $this->soap = new \SoapClient($this->wsdl);
+            $this->soap = new \SoapClient($this->wsdl, ['trace' => true]);
         } catch (\Exception $e) {
             throw new \Exception('Failed to build soap client');
         }
@@ -353,9 +353,9 @@ class Api
 
             $flags = [];
             foreach ($package->getFlags() AS $flag) {
-                $flags[]['MyApiFlag'] = [
+                $flags[] = [
                     'Code' => $flag->getCode(),
-                    'Value' => $flag->isValue()
+                    'Value' => $flag->isValue(),
                 ];
             }
 
@@ -465,6 +465,10 @@ class Api
             ]
         ]);
 
+        print($this->soap->__getLastRequest());
+        print('Response:');
+        print($this->soap->__getLastResponse());
+        
         if (isset($result->CreatePackagesResult->ResultData->ItemResult))
         {
             return $result->CreatePackagesResult->ResultData->ItemResult;

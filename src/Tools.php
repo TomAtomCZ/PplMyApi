@@ -46,6 +46,8 @@ class Tools
 
             case Product::EXPORT_PACKAGE:
             case Product::EXPORT_PACKAGE_COD:
+            case Product::PARCEL_CONNECT:
+            case Product::PARCEL_CONNECT_COD:    
                 $packageIdentifierPackageProductType = 2;
                 break;
 

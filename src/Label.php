@@ -5,7 +5,6 @@
 
 namespace Salamek\PplMyApi;
 
-
 use Salamek\PplMyApi\Enum\LabelDecomposition;
 use Salamek\PplMyApi\Enum\LabelPosition;
 use Salamek\PplMyApi\Enum\PackageService;
@@ -83,14 +82,20 @@ class Label
         $x = 17;
         $pdf->Image(__DIR__ . '/../assets/logo.png', $x, 10, 66, '', 'PNG');
 
+        $pdf->SetFont($pdf->getFontFamily(), '', 15);
+        $pdf->Text($x, 29, 'Profesionální balíková služba');
+        
         //Contact info
-        $contactInfoY = 45;
+        $contactInfoY = 40;
+        $pdf->SetFont($pdf->getFontFamily(), '', 18);
+        $pdf->Text($x, $contactInfoY, 'Pevná linka: 225 331 500');
+        $pdf->Text($x, $contactInfoY + 8, 'E-mail: info@ppl.cz');
+        $pdf->Text($x, $contactInfoY + 16, 'https://www.ppl.cz');
+        
+        $pdf->SetFont($pdf->getFontFamily(), '', 18);
+        $pdf->Text($x, $contactInfoY + 33,  $package->getPackageProductTypeName());
+
         $pdf->SetFont($pdf->getFontFamily(), '', 20);
-        $pdf->Text($x, $contactInfoY, 'Modrá linka: 844 775 775');
-        $pdf->Text($x, $contactInfoY + 10, 'E-mail: info@ppl.cz');
-        $pdf->Text($x, $contactInfoY + 20, 'https://www.ppl.cz');
-
-
         //Barcode
         $pdf->StartTransform();
         $x = 78; //65
@@ -154,8 +159,16 @@ class Label
         $pdf->SetFont($pdf->getFontFamily(), 'B', 60);
         $pdf->SetTextColor(255, 255, 255);
         $pdf->SetFillColor(0, 0, 0);
-        $pdf->MultiCell(60, 15, (in_array(PackageService::EVENING_DELIVERY, self::packageServicesToArray($package)) ? 'Večer' : 'Den'), ['LTRB' => ['width' => 1]], 'C', true, 0, 224, 73, true, 0,
-            false, true, 0);
+        
+        if (in_array($package->getPackageProductType(), Product::$eveningDelivery)) {
+            $pdf->MultiCell(60, 15, (in_array(PackageService::EVENING_DELIVERY, self::packageServicesToArray($package)) ? 'Večer' : 'Den'), ['LTRB' => ['width' => 1]], 'C', true, 0, 224, 73, true, 0,
+                false, true, 0);
+        }
+        elseif ($package->getRecipient()->getCountry() !== Enum\Country::CZ) {
+            $pdf->MultiCell(60, 15, $package->getRecipient()->getCountry(), ['LTRB' => ['width' => 1]], 'C', true, 0, 224, 73, true, 0,
+                false, true, 0);
+        }
+        
         $pdf->SetTextColor(0, 0, 0);
         $pdf->SetFillColor(255, 255, 255);
 

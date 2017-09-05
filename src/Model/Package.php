@@ -106,6 +106,10 @@ class Package
             throw new WrongDataException('$paymentInfo must be set if product type is CoD');
         }
 
+        if(count($flags) == 0) {
+            $flags[] = new Flag(\Salamek\PplMyApi\Enum\Flag::SATURDAY_DELIVERY, false);
+        }
+        
         $this->setPackageProductType($packageProductType);
         $this->setWeight($weight);
         $this->setNote($note);
@@ -298,6 +302,14 @@ class Package
     public function getPackageProductType()
     {
         return $this->packageProductType;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getPackageProductTypeName()
+    {
+        return Product::$names[$this->packageProductType];
     }
 
     /**
