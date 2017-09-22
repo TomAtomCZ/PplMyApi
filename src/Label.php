@@ -133,7 +133,10 @@ class Label
             $pdf->SetFillColor(255, 255, 255);
         }
 
-
+        //Poznamka
+        $pdf->SetFont($pdf->getFontFamily(), 'B', 20);
+        $pdf->Text(110, 177, 'Ref.:  '.$package->getNote());
+        
         //Prijemce
         $pdf->SetFont($pdf->getFontFamily(), '', 25);
 
