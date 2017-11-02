@@ -33,6 +33,9 @@ class ExternalNumber
      */
     public function setCode($code)
     {
+        if (!in_array($code, ExternalNumberEnum::$list)) {
+            throw new WrongDataException(sprintf('$code has wrong value, only %s are allowed', implode(', ', ExternalNumberEnum::$list)));
+        }
         $this->code = $code;
     }
 
@@ -42,10 +45,6 @@ class ExternalNumber
      */
     public function setExternalNumber($externalNumber)
     {
-        if (!in_array($externalNumber, ExternalNumberEnum::$list)) {
-            throw new WrongDataException(sprintf('$externalNumber has wrong value, only %s are allowed', implode(', ', ExternalNumberEnum::$list)));
-        }
-
         $this->externalNumber = $externalNumber;
     }
 
