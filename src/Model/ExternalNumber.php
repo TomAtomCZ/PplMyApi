@@ -30,6 +30,7 @@ class ExternalNumber
 
     /**
      * @param string $code
+     * @throws WrongDataException
      */
     public function setCode($code)
     {
@@ -41,7 +42,6 @@ class ExternalNumber
 
     /**
      * @param string $externalNumber
-     * @throws WrongDataException
      */
     public function setExternalNumber($externalNumber)
     {
