@@ -120,7 +120,7 @@ class Api
         $this->password = $password;
         $this->customerId = $customerId;
 
-        $this->securedStorage = sys_get_temp_dir() . '/' . __CLASS__;
+        $this->securedStorage = sys_get_temp_dir() . '/' . $customerId . '.pplapi';
 
         try {
             $this->soap = new \SoapClient($this->wsdl, ['trace' => true]);
