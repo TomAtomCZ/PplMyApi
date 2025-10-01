@@ -64,6 +64,9 @@ class Package
     /** @var int */
     private $packagePosition = 1;
 
+    /** @var null|int */
+    private $integratorId = null;
+
     /**
      * Package constructor.
      * @param null|integer $seriesNumberId
@@ -82,6 +85,7 @@ class Package
      * @param null|WeightedPackageInfo $weightedPackageInfo
      * @param integer $packageCount
      * @param integer $packagePosition
+     * @param null|integer $integratorId
      * @throws WrongDataException
      */
     public function __construct(
@@ -100,16 +104,18 @@ class Package
         PalletInfo $palletInfo = null,
         WeightedPackageInfo $weightedPackageInfo = null,
         $packageCount = 1,
-        $packagePosition = 1
-    ) {
+        $packagePosition = 1,
+        $integratorId = null
+    )
+    {
         if (in_array($packageProductType, Product::$cashOnDelivery) && is_null($paymentInfo)) {
             throw new WrongDataException('$paymentInfo must be set if product type is CoD');
         }
 
-        if(count($flags) == 0) {
+        if (count($flags) == 0) {
             $flags[] = new Flag(\Salamek\PplMyApi\Enum\Flag::SATURDAY_DELIVERY, false);
         }
-        
+
         $this->setPackageProductType($packageProductType);
         $this->setWeight($weight);
         $this->setNote($note);
@@ -125,6 +131,7 @@ class Package
         $this->setWeightedPackageInfo($weightedPackageInfo);
         $this->setPackageCount($packageCount);
         $this->setPackagePosition($packagePosition);
+        $this->setIntegratorId($integratorId);
 
 
         if (!is_null($seriesNumberId)) {
@@ -289,6 +296,16 @@ class Package
     }
 
     /**
+     * @param $integratorId
+     * @return $this
+     */
+    public function setIntegratorId($integratorId): Package
+    {
+        $this->integratorId = $integratorId;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getPackageNumber()
@@ -303,7 +320,7 @@ class Package
     {
         return $this->packageProductType;
     }
-    
+
     /**
      * @return string
      */
@@ -430,5 +447,13 @@ class Package
     public function getPackagePosition()
     {
         return $this->packagePosition;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getIntegratorId()
+    {
+        return $this->integratorId;
     }
 }
