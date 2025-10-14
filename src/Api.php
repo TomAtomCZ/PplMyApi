@@ -214,7 +214,7 @@ class Api
             ],
             'Filter' => [
                 'CountryCode' => $countryCode,
-                'DateFrom' => ($dateFrom ? $dateFrom->format('Y-m-d') : null),
+                'DateFrom' => ($dateFrom?->format('Y-m-d')),
                 'ZipCode' => $zipCode
             ]
         ]);
@@ -243,8 +243,8 @@ class Api
             ],
             'Filter' => [
                 'CustRefs' => $customRefs,
-                'DateFrom' => ($dateFrom ? $dateFrom->format('Y-m-d') : null),
-                'DateTo' => ($dateTo ? $dateTo->format('Y-m-d') : null),
+                'DateFrom' => ($dateFrom?->format('Y-m-d')),
+                'DateTo' => ($dateTo?->format('Y-m-d')),
                 'PackNumbers' => $packageNumbers
             ]
         ]);
@@ -274,9 +274,9 @@ class Api
                 'Note' => $order->getNote(),
                 'OrdRefId' => $order->getOrderReferenceId(),
                 'PackProductType' => $order->getPackageProductType(),
-                'SendDate' => $order->getSendDate()->format(\DateTime::ATOM),
-                'SendTimeFrom' => $order->getSendTimeFrom()->format(\DateTime::ATOM),
-                'SendTimeTo' => $order->getSendTimeTo()->format(\DateTime::ATOM),
+                'SendDate' => $order->getSendDate()?->format(\DateTime::ATOM),
+                'SendTimeFrom' => $order->getSendTimeFrom()?->format(\DateTime::ATOM),
+                'SendTimeTo' => $order->getSendTimeTo()?->format(\DateTime::ATOM),
                 'Sender' => [
                     'City' => $order->getSender()->getCity(),
                     'Contact' => $order->getSender()->getContact(),
@@ -428,12 +428,12 @@ class Api
                 ],
                 'SpecDelivery' => ($package->getSpecialDelivery() ? [
                     'ParcelShopCode' => $package->getSpecialDelivery()->getParcelShopCode(),
-                    'SpecDelivDate' => $package->getSpecialDelivery()->getDeliveryDate()->format('Y-m-d'),
-                    'SpecDelivTimeFrom' => $package->getSpecialDelivery()->getDeliveryTimeFrom()->format('H:i:s'),
-                    'SpecDelivTimeTo' => $package->getSpecialDelivery()->getDeliveryTimeTo()->format('H:i:s'),
-                    'SpecTakeDate' => $package->getSpecialDelivery()->getTakeDate()->format('Y-m-d'),
-                    'SpecTakeTimeFrom' => $package->getSpecialDelivery()->getTakeTimeFrom()->format('H:i:s'),
-                    'SpecTakeTimeTo' => $package->getSpecialDelivery()->getTakeTimeTo()->format('H:i:s')
+                    'SpecDelivDate' => $package->getSpecialDelivery()->getDeliveryDate()?->format('Y-m-d'),
+                    'SpecDelivTimeFrom' => $package->getSpecialDelivery()->getDeliveryTimeFrom()?->format('H:i:s'),
+                    'SpecDelivTimeTo' => $package->getSpecialDelivery()->getDeliveryTimeTo()?->format('H:i:s'),
+                    'SpecTakeDate' => $package->getSpecialDelivery()->getTakeDate()?->format('Y-m-d'),
+                    'SpecTakeTimeFrom' => $package->getSpecialDelivery()->getTakeTimeFrom()?->format('H:i:s'),
+                    'SpecTakeTimeTo' => $package->getSpecialDelivery()->getTakeTimeTo()?->format('H:i:s')
                 ] : null),
                 'PaymentInfo' => ($package->getPaymentInfo() ? [
                     'BankAccount' => $package->getPaymentInfo()->getBankAccount(),
@@ -493,9 +493,9 @@ class Api
                 'CountPack' => $pickupOrder->getCountPackages(),
                 'Note' => $pickupOrder->getNote(),
                 'Email' => $pickupOrder->getEmail(),
-                'SendDate' => $pickupOrder->getSendDate()->format('Y-m-d'),
-                'SendTimeFrom' => $pickupOrder->getSendTimeFrom()->format(\DateTime::ATOM),
-                'SendTimeTo' => $pickupOrder->getSendTimeTo()->format(\DateTime::ATOM),
+                'SendDate' => $pickupOrder->getSendDate()?->format('Y-m-d'),
+                'SendTimeFrom' => $pickupOrder->getSendTimeFrom()?->format(\DateTime::ATOM),
+                'SendTimeTo' => $pickupOrder->getSendTimeTo()?->format(\DateTime::ATOM),
                 'Sender' => [
                     'City' => $pickupOrder->getSender()->getCity(),
                     'Contact' => $pickupOrder->getSender()->getContact(),
